@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Builds and outputs
+build/
+dist/
+*.egg-info/
+output/
+weights/
+
+#compiled extensions
+*.so
+
+#editor?IDE
+cat > .gitignore <<'EOF'
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Builds and outputs
+build/
+dist/
+*.egg-info/
+output/
+weights/
+
+#compiled extensions
+*.so
+
+# EDITOR/IDE
+.vscode/
+.idea/
+*.swp
+
+#other
+.DS_Store

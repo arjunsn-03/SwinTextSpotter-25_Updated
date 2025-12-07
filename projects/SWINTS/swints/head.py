@@ -258,7 +258,8 @@ class DynamicHead(nn.Module):
             rec_result = self.rec_stage(rec_map, rec_proposal_features, gt_masks, N, nr_boxes, idx, target_rec)
         else:
             rec_result = self.rec_stage(rec_map, rec_proposal_features, gt_masks, N, nr_boxes)
-            rec_result = torch.tensor(rec_result)
+            device = class_logits.device
+            rec_result = torch.as_tensor(rec_result, device=device)
         if self.return_intermediate:
             return torch.stack(inter_class_logits), torch.stack(inter_pred_bboxes), torch.stack(inter_pred_masks), rec_result
         return class_logits[None], pred_bboxes[None], mask_logits[None]

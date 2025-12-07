@@ -19,9 +19,29 @@ from torch import Tensor
 # needed due to empty tensor bug in pytorch and torchvision 0.5
 import torchvision
 if float(torchvision.__version__[:3]) < 0.7:
-    from torchvision.ops import _new_empty_tensor
-    from torchvision.ops.misc import _output_size
+    try:
+        from torchvision.ops import _new_empty_tensor  # for old torchvision
+    except ImportError:
+        def _new_empty_tensor(x, shape):
+            return x.new_empty(shape)
+    def _output_size(dim, input, size=None, scale_factors=None):
+        if size is not None:
+            if isinstance(size, int):
+                return [size for _ in range(dim)]
+            if len(size) == dim:
+                return list(size)
+            raise ValueError(
+                "size should be an int or a sequence of length {}".format(dim)
+            )
+    
+        if scale_factors is not None:
+            return [
+                int(math.floor(input.size(i + 2) * scale_factors[i]))
+                for i in range(dim)
+            ]
 
+    # Fallback: keep current spatial dims
+        return list(input.shape[2:2 + dim])
 
 class SmoothedValue(object):
     """Track a series of values and provide access to smoothed values over a

@@ -180,6 +180,7 @@ class REC_STAGE(nn.Module):
         k_rec = self.TLSAM(k_rec)
         k_rec = k_rec.permute(0,2,1).view(n,c,self.feat_size[0],self.feat_size[1])
         gt_masks = self.rescale(gt_masks.unsqueeze(1))
+        gt_masks = gt_masks.to(k_rec.device)
         k_rec = k_rec*gt_masks
         attn_vecs = self.seq_decoder(k_rec, targets, targets)
         return attn_vecs
