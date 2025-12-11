@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Compiled extensions and Detectron2 build files
+*.so
+*.o
+*.cu
+**/build/
+**/dist/
+
+# Detectron2 compiled modules
+detectron2/_C*.so
+detectron2/*.so
+
+# Logs, outputs, experiments
+output/
+outputs/
+logs/
+*.log
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Virtual environments
+.env/
+.venv/
+*_env/
+env/
+venv/
